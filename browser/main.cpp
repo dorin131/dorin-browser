@@ -1,7 +1,6 @@
 #include <X11/Xlib.h>
 #include <unistd.h>
 #include <iostream>
-#include "../JS/test.cpp"
 #include "../JS/tokenizer.h"
 #include "../JS/parser.h"
 #include "../JS/error.h"

@@ -2,7 +2,6 @@
 #define TOKENIZER_H
 
 #include <algorithm>
-#include <bits/stdc++.h>
 #include <iostream>
 #include <string>
 

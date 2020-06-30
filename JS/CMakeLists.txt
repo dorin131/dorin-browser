@@ -1,5 +1,4 @@
 add_library (JS
-    test.cpp
     error.h
     error.cpp
     interpreter.h

@@ -3,3 +3,4 @@ project (dorin-browser)
 
 add_subdirectory (browser)
 add_subdirectory (JS)
+add_subdirectory (tests)
