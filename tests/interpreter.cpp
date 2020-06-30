@@ -52,6 +52,14 @@ std::vector<test> tests = {
     test("var o = {a:{b:2}}; o.a.b;", js::Value::NUMBER, "2"),
     test("var o = {a:{b:{c:777}}}; o.a.b.c;", js::Value::NUMBER, "777"),
     test("var x = 4;var o = {a:{b:{c:2+5*5,d:x}}}; o.a.b.c + o.a.b.d;", js::Value::NUMBER, "31"),
+    // test("true", js::Value::BOOLEAN, "true"),
+    // test("false", js::Value::BOOLEAN, "false"),
+    // test("var b = true; b;", js::Value::BOOLEAN, "true"),
+    // test("1 == 1", js::Value::BOOLEAN, "true"),
+    // test("1 != 1", js::Value::BOOLEAN, "false"),
+    // test("1 == 2", js::Value::BOOLEAN, "false"),
+    // test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
+    // test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
 };
 
 void interpreter_tests()
@@ -63,7 +71,7 @@ void interpreter_tests()
         try {
             program = p.parse_program();
         } catch (js::SyntaxError e) {
-            std::cerr << "Parsing error: " + e.message << std::endl;
+            std::cerr << "TEST FAILED: " << test.code << std::endl << e.message << std::endl;
             throw test_error{};
         }
 

@@ -5,17 +5,12 @@
 #include <string>
 
 struct test_error {
-    std::string name;
+    std::string msg;
 };
 
 #define ASSERT(n, expr) \
-    try {\
-        if (!(expr)) {\
-            throw test_error{n};\
-        };\
-    } catch (test_error e) {\
-        std::cerr << "FAILED: " << e.name << std::endl;\
-        throw e;\
-    }\
+    if (!(expr)) {\
+        throw test_error{n};\
+    };\
 
 #endif
