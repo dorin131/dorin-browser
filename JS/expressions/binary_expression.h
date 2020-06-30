@@ -29,6 +29,7 @@ private:
 
     Value string_arithmetic(Value, Value) const;
     Value number_arithmetic(Value, Value) const;
+    std::string bool_to_str(bool) const;
 };
 
 } // namespace js

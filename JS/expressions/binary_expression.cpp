@@ -40,8 +40,25 @@ Value BinaryExpression::number_arithmetic(Value l, Value r) const
         return Value(Value::NUMBER, std::to_string(l_int * r_int));
     } else if (op == "/") {
         return Value(Value::NUMBER, std::to_string(l_int / r_int));
+    } else if (op == "==") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int == r_int));
+    } else if (op == "!=") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int != r_int));
+    } else if (op == ">") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int > r_int));
+    } else if (op == "<") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int < r_int));
+    } else if (op == ">=") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int >= r_int));
+    } else if (op == "<=") {
+        return Value(Value::BOOLEAN, bool_to_str(l_int <= r_int));
     }
     throw SyntaxError("Invalid operator: " + op);
+}
+
+std::string BinaryExpression::bool_to_str(bool expr) const
+{
+    return expr ? "true" : "false";
 }
 
 void BinaryExpression::dump(int indent)

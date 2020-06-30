@@ -55,9 +55,19 @@ std::vector<test> tests = {
     test("true", js::Value::BOOLEAN, "true"),
     test("false", js::Value::BOOLEAN, "false"),
     test("var b = true; b;", js::Value::BOOLEAN, "true"),
-    // test("1 == 1", js::Value::BOOLEAN, "true"),
-    // test("1 != 1", js::Value::BOOLEAN, "false"),
-    // test("1 == 2", js::Value::BOOLEAN, "false"),
+    test("1 == 1", js::Value::BOOLEAN, "true"),
+    test("1 != 1", js::Value::BOOLEAN, "false"),
+    test("1 == 2", js::Value::BOOLEAN, "false"),
+    // test("1 == \"1\"", js::Value::BOOLEAN, "true"),
+    // test("true == false", js::Value::BOOLEAN, "false"),
+    // test("true == true", js::Value::BOOLEAN, "true"),
+    // test("\"hello\" == \"world\"", js::Value::BOOLEAN, "false"),
+    // test("\"hello\" == \"hello\"", js::Value::BOOLEAN, "true"),
+    // test("\"hello\" == 1", js::Value::BOOLEAN, "false"),
+    // test("\"hello\" == true", js::Value::BOOLEAN, "true"),
+    // test("\"hello\" == false", js::Value::BOOLEAN, "false"),
+    // test("\"\" == false", js::Value::BOOLEAN, "false"),
+    // test("\" \" == false", js::Value::BOOLEAN, "false"),
     // test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
     // test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
 };
@@ -68,8 +78,12 @@ void interpreter_tests()
         js::Tokenizer t = js::Tokenizer(test.code);
         auto p = js::Parser(t);
         std::shared_ptr<js::Program> program;
+        js::Interpreter interpreter;
+        js::Value result = js::Value(js::Value::UNDEFINED, "");
+
         try {
             program = p.parse_program();
+            result = interpreter.run(program);
         } catch (js::SyntaxError e) {
             std::cerr << "TEST FAILED: " << test.code << std::endl << e.message << std::endl;
             throw test_error{};
@@ -77,8 +91,7 @@ void interpreter_tests()
 
         // program->dump(0);
 
-        js::Interpreter interpreter;
-        auto result = interpreter.run(program);
+        // std::cout << result.get_value() << std::endl;
 
         ASSERT(test.code, result.get_type() == test.result_type);
         ASSERT(test.code, result.get_value() == test.result_value);
