@@ -25,6 +25,8 @@ add_library (JS
     expressions/literal.cpp
     expressions/object_expression.h
     expressions/object_expression.cpp
+    expressions/boolean.h
+    expressions/boolean.cpp
     statements/block_statement.cpp
     statements/block_statement.h
     statements/expression_statement.cpp

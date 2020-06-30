@@ -12,6 +12,7 @@
 #include "expressions/call_expression.h"
 #include "expressions/literal.h"
 #include "expressions/object_expression.h"
+#include "expressions/boolean.h"
 #include "statements/program.h"
 #include "statements/variable_statement.h"
 #include "statements/if_statement.h"
@@ -67,6 +68,7 @@ private:
     std::shared_ptr<VariableStatement> parse_variable_statement();
     std::shared_ptr<IfStatement> parse_if_statement();
     std::shared_ptr<ReturnStatement> parse_return_statement();
+    std::shared_ptr<Boolean> parse_boolean();
     std::shared_ptr<FunctionDeclaration> parse_function_declaration();
     std::shared_ptr<ExpressionStatement> parse_expression_statement();
     std::shared_ptr<Node> parse_expression(Precedence);

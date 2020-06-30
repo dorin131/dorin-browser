@@ -80,6 +80,10 @@ std::shared_ptr<Node> Parser::parse_expression(Precedence precedence)
     case(Token::STRING):
         left = parse_literal_expression();
         break;
+    case(Token::TRUE):
+    case(Token::FALSE):
+        left = parse_boolean();
+        break;
     case(Token::LPAREN):
         left = parse_grouped_expression();
         break;
@@ -287,6 +291,11 @@ std::shared_ptr<ObjectExpression> Parser::parse_object_expression()
         }
     }
     return std::make_shared<ObjectExpression>(name, path);
+}
+
+std::shared_ptr<Boolean> Parser::parse_boolean()
+{
+    return std::make_shared<Boolean>(current_token);
 }
 
 std::shared_ptr<IfStatement> Parser::parse_if_statement()
