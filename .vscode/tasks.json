@@ -2,14 +2,8 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "C/C++: clang++ build active file",
-            "command": "/usr/bin/clang++",
-            "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
-            ],
+            "label": "Build Browser",
+            "command": "/usr/bin/cmake --build /home/dorin/dev/dorin-browser/build --config Debug --target all -- -j 6",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
