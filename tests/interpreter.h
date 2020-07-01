@@ -1,3 +1,6 @@
+#ifndef INTERPRETER_TEST_H
+#define INTERPRETER_TEST_H
+
 #include <iostream>
 
 #include "tests.h"
@@ -106,3 +109,5 @@ void interpreter_tests()
 }
 
 }
+
+#endif

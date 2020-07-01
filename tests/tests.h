@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+namespace tests {
+
 struct test_error {
     std::string msg;
 };
@@ -12,5 +14,7 @@ struct test_error {
     if (!(expr)) {\
         throw test_error{n};\
     };\
+
+}
 
 #endif
