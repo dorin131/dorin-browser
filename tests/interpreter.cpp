@@ -6,6 +6,8 @@
 #include "../JS/value.h"
 #include "../JS/interpreter.h"
 
+namespace tests {
+
 struct test {
     std::string code;
     js::Value::Type result_type;
@@ -58,6 +60,9 @@ std::vector<test> tests = {
     test("1 == 1", js::Value::BOOLEAN, "true"),
     test("1 != 1", js::Value::BOOLEAN, "false"),
     test("1 == 2", js::Value::BOOLEAN, "false"),
+    test("1 + true", js::Value::NUMBER, "2"),
+    // test("true + true", js::Value::NUMBER, "2"),
+    // test("true + \"hello\"", js::Value::STRING, "truehello"),
     // test("1 == \"1\"", js::Value::BOOLEAN, "true"),
     // test("true == false", js::Value::BOOLEAN, "false"),
     // test("true == true", js::Value::BOOLEAN, "true"),
@@ -98,4 +103,6 @@ void interpreter_tests()
 
         std::cout << "PASSED: " << test.code << std::endl;
     }
+}
+
 }
