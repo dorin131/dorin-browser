@@ -114,6 +114,8 @@ std::shared_ptr<Node> Parser::parse_expression(Precedence precedence)
         case(Token::NE):
         case(Token::GT):
         case(Token::LT):
+        case(Token::GTE):
+        case(Token::LTE):
             left = parse_binary_expression(left);
             break;
         default:

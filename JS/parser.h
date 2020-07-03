@@ -51,11 +51,14 @@ private:
         CALL
     };
 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
     std::map<Token::Type, Precedence> precedences = {
         {Token::EQ, Precedence::EQUALS},
         {Token::NE, Precedence::EQUALS},
         {Token::LT, Precedence::LESSGREATER},
         {Token::GT, Precedence::LESSGREATER},
+        {Token::LTE, Precedence::LESSGREATER},
+        {Token::GTE, Precedence::LESSGREATER},
         {Token::ADD, Precedence::SUM},
         {Token::SUB, Precedence::SUM},
         {Token::DIV, Precedence::PRODUCT},
