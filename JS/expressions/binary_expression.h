@@ -27,9 +27,13 @@ private:
     std::shared_ptr<Node> left;
     std::shared_ptr<Node> right;
 
-    Value string_arithmetic(Value, Value) const;
-    Value number_arithmetic(Value, Value) const;
-    std::string bool_to_str(bool) const;
+    Value string_arithmetic(Value, Value);
+    Value number_arithmetic(Value, Value);
+    Value comparison(Value, Value);
+    Value string_comparison(Value, Value);
+    std::string bool_to_str(bool);
+    int value_to_int(Value);
+    int str_to_int(std::string);
 };
 
 } // namespace js
