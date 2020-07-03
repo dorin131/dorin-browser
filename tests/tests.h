@@ -13,7 +13,7 @@ struct test_error {
 #define ASSERT(n, expr) \
     if (!(expr)) {\
         throw test_error{n};\
-    };\
+    };
 
 }
 
