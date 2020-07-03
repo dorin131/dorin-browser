@@ -189,11 +189,7 @@ std::shared_ptr<FunctionDeclaration> Parser::parse_function_declaration()
     }
 
     auto params = parse_function_parameters();
-
-    if (!peek_token_is(Token::LBRACE)) {
-        throw SyntaxError("Expected left brace");
-    }
-    next_token();
+    expect_next_to_be(Token::LBRACE, "Expected left brace");
     auto body = parse_block_statement();
 
     return std::make_shared<FunctionDeclaration>(name, body, params);
@@ -222,6 +218,8 @@ std::shared_ptr<BlockStatement> Parser::parse_block_statement()
         next_token();
     }
 
+    next_token();
+
     return block_statement;
 }
 
@@ -236,14 +234,7 @@ std::shared_ptr<Expression> Parser::parse_identifier()
 std::shared_ptr<ReturnStatement> Parser::parse_return_statement()
 {
     next_token();
-
-    auto return_statement = std::make_shared<ReturnStatement>(parse_expression(Precedence::LOWEST));
-
-    if (peek_token_is(Token::SEMICOLON)) {
-        next_token();
-    }
-
-    return return_statement;
+    return std::make_shared<ReturnStatement>(parse_expression(Precedence::LOWEST));
 }
 
 std::shared_ptr<CallExpression> Parser::parse_call_expression(std::shared_ptr<Node> node)
@@ -267,7 +258,7 @@ std::shared_ptr<ObjectStatement> Parser::parse_object_statement()
 {
     auto obj = std::make_shared<ObjectStatement>();
     while(!peek_token_is(Token::RBRACE)) {
-        expect_next_to_be(Token::IDENTIFIER, "Expected identifier");
+        expect_next_to_be(Token::IDENTIFIER, "Expected identifier, got " + peek_token.get_value());
         auto name = current_token;
         expect_next_to_be(Token::COLON, "Expected colon");
         next_token();
@@ -302,7 +293,16 @@ std::shared_ptr<Boolean> Parser::parse_boolean()
 
 std::shared_ptr<IfStatement> Parser::parse_if_statement()
 {
-    return std::make_shared<IfStatement>();
+    expect_next_to_be(Token::LPAREN, "Expected ( after if statement");
+    auto condition = parse_expression(Precedence::LOWEST);
+    expect_next_to_be(Token::LBRACE, "Expected { after if condition");
+    auto then_block = parse_block_statement();
+    if (current_token_is(Token::ELSE)) {
+        expect_next_to_be(Token::LBRACE, "Expected { after else keyword");
+        auto else_block = parse_block_statement();
+        return std::make_shared<IfStatement>(condition, then_block, else_block);
+    }
+    return std::make_shared<IfStatement>(condition, then_block);
 }
 
 void Parser::expect_next_to_be(Token::Type type, std::string msg)
@@ -313,5 +313,10 @@ void Parser::expect_next_to_be(Token::Type type, std::string msg)
         throw SyntaxError("Unexpected token: " + msg);
     }
 }
+
+// void Parser::eat_semicolons()
+// {
+
+// }
 
 } // namespace js

@@ -15,6 +15,9 @@ Value Literal::execute(Interpreter&)
         return Value(Value::STRING, token.get_value());
     case(Token::NUMBER):
         return Value(Value::NUMBER, token.get_value());
+    case(Token::TRUE):
+    case(Token::FALSE):
+        return Value(Value::BOOLEAN, token.get_value());
     default:
         // TODO: Handle this better
         return Value(Value::UNDEFINED, "");

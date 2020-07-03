@@ -26,9 +26,9 @@ Value Interpreter::run(std::shared_ptr<BlockStatement> block_statement)
 
     exit_scope();
 
-    if (!top_level && !has_returned) {
-        return Value(Value::UNDEFINED, "");
-    }
+    // if (!top_level && !has_returned) {
+    //     return Value(Value::UNDEFINED, "");
+    // }
 
     return last_value;
 }
