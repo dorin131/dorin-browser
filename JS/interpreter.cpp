@@ -16,19 +16,23 @@ Value Interpreter::run(std::shared_ptr<BlockStatement> block_statement)
     for (std::shared_ptr<Statement> statement : block_statement->get_elements()) {
         last_value = statement->execute(*this);
 
-        if (!is_top_level_block_statement(block_statement) && is_return_statement(statement)) {
+        if (is_return_statement(statement)) {
+            if (!is_in_a_function()) throw;
             has_returned = true;
             break;
         }
     }
 
     auto top_level = is_top_level_block_statement(block_statement);
+    auto in_conditional_stmt = is_in_conditional_stmt(block_statement);
 
     exit_scope();
 
-    // if (!top_level && !has_returned) {
-    //     return Value(Value::UNDEFINED, "");
-    // }
+    if (in_conditional_stmt) return last_value;
+
+    if (!has_returned && !top_level) {
+        return Value(Value::UNDEFINED, "");
+    }
 
     return last_value;
 }
@@ -51,6 +55,19 @@ bool Interpreter::is_top_level_block_statement(std::shared_ptr<BlockStatement> b
 bool Interpreter::is_return_statement(std::shared_ptr<Statement> node)
 {
     return node->get_type() == "ReturnStatement";
+}
+
+bool Interpreter::is_in_a_function()
+{
+    // TODO: to implement
+    return true;
+}
+
+bool Interpreter::is_in_conditional_stmt(std::shared_ptr<BlockStatement> b)
+{
+    auto parent = b->get_parent();
+    if (!parent) return false;
+    return parent->get_type() == "IfStatement";
 }
 
 std::shared_ptr<Node> Interpreter::find_in_scope(Identifier ident)

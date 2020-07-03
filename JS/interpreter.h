@@ -30,6 +30,8 @@ private:
     // Helpers
     bool is_top_level_block_statement(std::shared_ptr<BlockStatement>);
     bool is_return_statement(std::shared_ptr<Statement>);
+    bool is_in_conditional_stmt(std::shared_ptr<BlockStatement>);
+    bool is_in_a_function();
 };
 
 } // namespace js

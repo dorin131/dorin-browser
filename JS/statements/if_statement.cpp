@@ -2,13 +2,13 @@
 
 namespace js {
 
-IfStatement::IfStatement(std::shared_ptr<Node> cond, std::shared_ptr<Node> t)
+IfStatement::IfStatement(std::shared_ptr<Node> cond, std::shared_ptr<BlockStatement> t)
     : condition(cond), then_block(t)
 {
 
 }
 
-IfStatement::IfStatement(std::shared_ptr<Node> cond, std::shared_ptr<Node> t, std::shared_ptr<Node> e)
+IfStatement::IfStatement(std::shared_ptr<Node> cond, std::shared_ptr<BlockStatement> t, std::shared_ptr<BlockStatement> e)
     : condition(cond), then_block(t), else_block(e)
 {
 
@@ -32,8 +32,10 @@ void IfStatement::dump(int indent)
 Value IfStatement::execute(Interpreter& i)
 {
     if (condition->execute(i).is_truthy()) {
+        then_block->set_parent(shared_from_this());
         return then_block->execute(i);
     }
+    else_block->set_parent(shared_from_this());
     return else_block->execute(i);
 };
 

@@ -18,6 +18,7 @@ void FunctionDeclaration::dump(int indent)
 
 Value FunctionDeclaration::execute(Interpreter& i)
 {
+    body->set_parent(shared_from_this());
     // If function has name, put on global scope
     if (name.get_token().get_value().size() > 0) {
         i.get_global()->set(name, shared_from_this());
