@@ -4,10 +4,8 @@
 #include <iostream>
 
 #include "tests.h"
-#include "../JS/tokenizer.h"
-#include "../JS/parser.h"
 #include "../JS/value.h"
-#include "../JS/interpreter.h"
+#include "../JS/eval.h"
 
 namespace tests {
 
@@ -93,29 +91,21 @@ std::vector<test> all_tests = {
     test("if (\"hello\") { 1; } else { 2; };", js::Value::NUMBER, "1"),
     test("if (\"\") { 1; } else { 2; };", js::Value::NUMBER, "2"),
     test("function f() { 3; }; f();", js::Value::UNDEFINED, ""),
+    test("if (5==5) {8;}", js::Value::NUMBER, "8"),
+    test("if (5==6) {8;}", js::Value::UNDEFINED, ""),
+    //test("function fib(n){ if(n<=1){return 1;} else {1;}; return fib(n-1) + fib(n-2); }; fib(5);", js::Value::NUMBER, "8"),
+    //test("return 1;", js::Value::ERROR, "SyntaxError: Illegal return statement"),
 };
 
 void interpreter_tests()
 {
     for (test test : all_tests) {
-        js::Tokenizer t = js::Tokenizer(test.code);
-        auto p = js::Parser(t);
-        std::shared_ptr<js::Program> program;
-        js::Interpreter interpreter;
-        js::Value result = js::Value(js::Value::UNDEFINED, "");
+        auto eval = js::Eval();
+        // eval.enable_debug();
+        auto result = eval.run(test.code);
 
-        try {
-            program = p.parse_program();
-            result = interpreter.run(program);
-        } catch (js::SyntaxError e) {
-            std::cerr << "TEST FAILED: " << test.code << std::endl << e.message << std::endl;
-            throw test_error{};
-        }
-
-        program->dump(0);
-
-        assert(test.result_type, result.get_type(), test.code);
         assert(test.result_value, result.get_value(), test.code);
+        assert(test.result_type, result.get_type(), test.code);
 
         std::cout << "PASSED: " << test.code << std::endl;
     }
