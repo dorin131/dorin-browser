@@ -38,6 +38,7 @@ std::vector<test> all_tests = {
     test("var f = function() { return 4 / 2; }; f() *3;", js::Value::NUMBER, "6"),
     test("var f = function() { var ff = function(){return 8;}; return ff(); }; f()", js::Value::NUMBER, "8"),
     test("var f = function(a) {};", js::Value::UNDEFINED, ""),
+    test("var f = function(a) { 1; };", js::Value::UNDEFINED, ""),
     test("var f = function(a) { return a; }; f(88)", js::Value::NUMBER, "88"),
     test("var f = function(a,b,c) { return a+b-c; }; var x = 2;", js::Value::UNDEFINED, ""),
     test("var f = function(a,b,c) { return a+b-c; }; var x = 2; f(x,x,3)", js::Value::NUMBER, "1"),
@@ -85,8 +86,8 @@ std::vector<test> all_tests = {
     test("1 > 2", js::Value::BOOLEAN, "false"),
     test("1 <= 2", js::Value::BOOLEAN, "true"),
     test("1 >= 2", js::Value::BOOLEAN, "false"),
-    // test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
-    // test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
+    test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
+    test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
 };
 
 void interpreter_tests()
@@ -108,10 +109,8 @@ void interpreter_tests()
 
         // program->dump(0);
 
-        // std::cout << result.get_value() << std::endl;
-
-        ASSERT(test.code, result.get_type() == test.result_type);
-        ASSERT(test.code, result.get_value() == test.result_value);
+        assert(test.result_type, result.get_type(), test.code);
+        assert(test.result_value, result.get_value(), test.code);
 
         std::cout << "PASSED: " << test.code << std::endl;
     }
