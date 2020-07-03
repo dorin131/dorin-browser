@@ -31,7 +31,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/tests/tests",
             "args": [],
-            "stopAtEntry": true,
+            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
