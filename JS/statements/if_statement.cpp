@@ -31,10 +31,12 @@ void IfStatement::dump(int indent)
 
 Value IfStatement::execute(Interpreter& i)
 {
-    if (condition->execute(i).get_value() == "true") {
+    if (condition->execute(i).is_truthy()) {
         return then_block->execute(i);
     }
     return else_block->execute(i);
 };
+
+
 
 } // namespace js

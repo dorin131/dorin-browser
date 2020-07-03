@@ -314,9 +314,4 @@ void Parser::expect_next_to_be(Token::Type type, std::string msg)
     }
 }
 
-// void Parser::eat_semicolons()
-// {
-
-// }
-
 } // namespace js
