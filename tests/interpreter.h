@@ -19,7 +19,7 @@ struct test {
         : code(c), result_type(r_t), result_value(r_v) {}
 };
 
-std::vector<test> tests = {
+std::vector<test> all_tests = {
     test("1+2", js::Value::NUMBER, "3"),
     test("2*3;", js::Value::NUMBER, "6"),
     test("2+5*5;", js::Value::NUMBER, "27"),
@@ -82,7 +82,7 @@ std::vector<test> tests = {
 
 void interpreter_tests()
 {
-    for (test test : tests) {
+    for (test test : all_tests) {
         js::Tokenizer t = js::Tokenizer(test.code);
         auto p = js::Parser(t);
         std::shared_ptr<js::Program> program;
