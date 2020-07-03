@@ -88,6 +88,10 @@ std::vector<test> all_tests = {
     test("1 >= 2", js::Value::BOOLEAN, "false"),
     test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
     test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
+    test("if (5==5) { 1; } else { 2; };", js::Value::NUMBER, "1"),
+    test("if (5==10) { 1; } else { 2; };", js::Value::NUMBER, "2"),
+    test("if (\"hello\") { 1; } else { 2; };", js::Value::NUMBER, "1"),
+    test("if (\"\") { 1; } else { 2; };", js::Value::NUMBER, "2"),
 };
 
 void interpreter_tests()
