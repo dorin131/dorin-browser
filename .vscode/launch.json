@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "clang++ - Build and debug active file",
+            "name": "Build and debug Browser",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/browser/browser",
@@ -23,6 +23,27 @@
                 }
             ],
             "preLaunchTask": "Build Browser",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Build and debug Tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/tests",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build Tests",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
