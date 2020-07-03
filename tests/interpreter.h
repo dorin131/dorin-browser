@@ -92,6 +92,7 @@ std::vector<test> all_tests = {
     test("if (5==10) { 1; } else { 2; };", js::Value::NUMBER, "2"),
     test("if (\"hello\") { 1; } else { 2; };", js::Value::NUMBER, "1"),
     test("if (\"\") { 1; } else { 2; };", js::Value::NUMBER, "2"),
+    test("function f() { 3; }; f();", js::Value::UNDEFINED, ""),
 };
 
 void interpreter_tests()
@@ -111,7 +112,7 @@ void interpreter_tests()
             throw test_error{};
         }
 
-        // program->dump(0);
+        program->dump(0);
 
         assert(test.result_type, result.get_type(), test.code);
         assert(test.result_value, result.get_value(), test.code);
