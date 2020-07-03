@@ -18,6 +18,7 @@ public:
         FUNCTION
     };
     Value(Type, std::string);
+    Value();
     Type get_type();
     std::string get_value();
     bool is_truthy();

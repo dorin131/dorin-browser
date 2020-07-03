@@ -1,4 +1,6 @@
 add_library (JS
+    eval.h
+    eval.cpp
     error.h
     error.cpp
     interpreter.h

@@ -35,8 +35,11 @@ Value IfStatement::execute(Interpreter& i)
         then_block->set_parent(shared_from_this());
         return then_block->execute(i);
     }
-    else_block->set_parent(shared_from_this());
-    return else_block->execute(i);
+    if (else_block) {
+        else_block->set_parent(shared_from_this());
+        return else_block->execute(i);
+    }
+    return Value();
 };
 
 

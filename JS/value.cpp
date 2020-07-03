@@ -8,6 +8,12 @@ Value::Value(Type type, std::string value)
 
 }
 
+Value::Value()
+{
+    type = UNDEFINED;
+    value = "";
+}
+
 Value::Type Value::get_type()
 {
     return type;
