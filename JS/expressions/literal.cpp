@@ -3,25 +3,32 @@
 namespace js {
 
 Literal::Literal(Token t)
-    : token(t)
+{
+    switch(t.get_type()) {
+    case(Token::STRING):
+        value = Value(Value::STRING, t.get_value());
+        break;
+    case(Token::NUMBER):
+        value = Value(Value::NUMBER, t.get_value());
+        break;
+    case(Token::TRUE):
+    case(Token::FALSE):
+        value = Value(Value::BOOLEAN, t.get_value());
+        break;
+    default:
+        value = Value();
+    }
+}
+
+Literal::Literal(Value v)
+    : value(v)
 {
 
 }
 
 Value Literal::execute(Interpreter&)
 {
-    switch(token.get_type()) {
-    case(Token::STRING):
-        return Value(Value::STRING, token.get_value());
-    case(Token::NUMBER):
-        return Value(Value::NUMBER, token.get_value());
-    case(Token::TRUE):
-    case(Token::FALSE):
-        return Value(Value::BOOLEAN, token.get_value());
-    default:
-        // TODO: Handle this better
-        return Value(Value::UNDEFINED, "");
-    }
+    return value;
 }
 
 void Literal::dump(int indent)
@@ -29,7 +36,7 @@ void Literal::dump(int indent)
     print_indent(indent);
     std::cout << "Literal\n";
     print_indent(indent + 1);
-    std::cout << token.get_value() << std::endl;
+    std::cout << value.get_value() << std::endl;
 }
 
 } // namespace js
