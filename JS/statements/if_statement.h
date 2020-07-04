@@ -16,6 +16,8 @@ public:
     Value execute(Interpreter&) override;
     void dump(int indent) override;
     inline std::string get_type() override { return "IfStatement"; };
+
+    std::shared_ptr<BlockStatement> get_branch(Interpreter&);
 private:
     std::shared_ptr<Node> condition;
     std::shared_ptr<BlockStatement> then_block;

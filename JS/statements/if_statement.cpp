@@ -33,17 +33,25 @@ void IfStatement::dump(int indent)
 
 Value IfStatement::execute(Interpreter& i)
 {
-    if (condition->execute(i).is_truthy()) {
-        then_block->set_parent(shared_from_this());
-        return then_block->execute(i);
-    }
-    if (else_block) {
-        else_block->set_parent(shared_from_this());
-        return else_block->execute(i);
-    }
+    /**
+     * IfStatement should not be executed, rather you should get
+     * the branch with get_branch and insert the statements into
+     * the parent block statement
+     **/
     return Value();
 };
 
-
+std::shared_ptr<BlockStatement> IfStatement::get_branch(Interpreter& i)
+{
+    if (condition->execute(i).is_truthy()) {
+        then_block->set_parent(shared_from_this());
+        return then_block;
+    }
+    if (else_block) {
+        else_block->set_parent(shared_from_this());
+        return else_block;
+    }
+    return nullptr;
+}
 
 } // namespace js

@@ -7,6 +7,7 @@
 #include "error.h"
 #include "./statements/object_statement.h"
 #include "./statements/block_statement.h"
+#include "./statements/if_statement.h"
 
 namespace js {
 
@@ -31,9 +32,12 @@ private:
     // Helpers
     bool is_top_level_block_statement(std::shared_ptr<BlockStatement>);
     bool is_return_statement(std::shared_ptr<Statement>);
-    bool is_in_conditional_stmt(std::shared_ptr<BlockStatement>);
     bool is_in_a_function();
 
+    /**
+     * The number of functions we have entered
+     * Zero would mean we're not in a function
+     **/
     int in_function_count = 0;
 };
 
