@@ -25,7 +25,11 @@ bool ObjectStatement::has(Identifier i)
 
 void ObjectStatement::set(Identifier ident, std::shared_ptr<Node> expr)
 {
-    object_map.insert({ident, expr});
+    if (has(ident)) {
+        object_map.at(ident) = expr;
+    } else {
+        object_map.insert(std::make_pair(ident, expr));
+    }
 };
 
 Value ObjectStatement::execute(Interpreter &)
