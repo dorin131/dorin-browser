@@ -22,7 +22,7 @@ public:
     inline std::vector<std::shared_ptr<Statement>> get_elements() { return source_elements; };
     inline std::shared_ptr<ObjectStatement> get_local_scope() { return local_scope; };
 
-    void associate_arguments(std::vector<std::shared_ptr<Node>>);
+    void associate_arguments(Interpreter&, std::vector<std::shared_ptr<Node>>);
     void add_parameters(std::list<Identifier>);
 
     inline std::shared_ptr<Node> get_parent() { return parent; };

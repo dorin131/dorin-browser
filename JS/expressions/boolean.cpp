@@ -7,7 +7,7 @@ Boolean::Boolean(Token t): token(t)
 
 }
 
-Value Boolean::execute(Interpreter& i)
+Value Boolean::execute(Interpreter&)
 {
     return Value(Value::BOOLEAN, token.get_value());
 }

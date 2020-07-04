@@ -23,11 +23,13 @@ void BlockStatement::add_parameters(std::list<Identifier> params)
     parameters = params;
 }
 
-void BlockStatement::associate_arguments(std::vector<std::shared_ptr<Node>> args)
+void BlockStatement::associate_arguments(Interpreter& in, std::vector<std::shared_ptr<Node>> args)
 {
     int i = 0;
     for(Identifier id : parameters) {
-        get_local_scope()->set(id, args[i]);
+        // We evaluate the value of the argument before storing it
+        auto value = args[i]->execute(in);
+        get_local_scope()->set(id, std::make_shared<Literal>(Literal(value)));
         i++;
     }
 }
