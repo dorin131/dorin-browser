@@ -94,14 +94,15 @@ std::vector<test> all_tests = {
     test("if (5==5) {8;}", js::Value::NUMBER, "8"),
     test("if (5==6) {8;}", js::Value::UNDEFINED, ""),
     test("return 1;", js::Value::ERROR, "SyntaxError: Illegal return statement"),
-    //test("function fib(n){ if(n<=1){return 1;} else {1;}; return fib(n-1) + fib(n-2); }; fib(5);", js::Value::NUMBER, "8"),
+    test("function f(x) {if(true) {return x;};}; f(2);", js::Value::NUMBER, "2"),
+    //test("function fib(n){ if(n<=1){return 1;}; return fib(1) + fib(1); }; fib(4);", js::Value::NUMBER, "8"),
 };
 
 void interpreter_tests()
 {
     for (test test : all_tests) {
         auto eval = js::Eval();
-        //eval.enable_debug();
+        // eval.enable_debug();
         auto result = eval.run(test.code);
 
         assert(test.result_value, result.get_value(), test.code);
