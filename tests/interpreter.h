@@ -95,6 +95,11 @@ std::vector<test> all_tests = {
     test("if (5==6) {8;}", js::Value::UNDEFINED, ""),
     test("return 1;", js::Value::ERROR, "SyntaxError: Illegal return statement"),
     test("function f(x) {if(true) {return x;};}; f(2);", js::Value::NUMBER, "2"),
+    test("function f(x) {if(false) {return x;}else{return x*x;};}; f(2);", js::Value::NUMBER, "4"),
+    test("var f = function (x) {if(true) {return x;};}; f(2);", js::Value::NUMBER, "2"),
+    test("var f = function (x) {if(false) {return x;}else{return x*x;};}; f(2);", js::Value::NUMBER, "4"),
+    test("function rec(n) { if (n==10) { return 999;} else { return rec(10);};}; rec(2);", js::Value::NUMBER, "999"),
+    //test("function pow(x, n) {if (n == 1) {return x;} else {return x * pow(x, n - 1);};}; pow(2,3);", js::Value::NUMBER, "8"),
     //test("function fib(n){ if(n<=1){return 1;}; return fib(1) + fib(1); }; fib(4);", js::Value::NUMBER, "8"),
 };
 
