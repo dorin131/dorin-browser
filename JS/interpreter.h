@@ -4,6 +4,7 @@
 #include <list>
 
 #include "value.h"
+#include "error.h"
 #include "./statements/object_statement.h"
 #include "./statements/block_statement.h"
 
@@ -32,6 +33,8 @@ private:
     bool is_return_statement(std::shared_ptr<Statement>);
     bool is_in_conditional_stmt(std::shared_ptr<BlockStatement>);
     bool is_in_a_function();
+
+    int in_function_count = 0;
 };
 
 } // namespace js

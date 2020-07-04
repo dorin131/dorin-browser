@@ -20,6 +20,7 @@ Value CallExpression::execute(Interpreter& i)
     if (callee->get_type() == "FunctionDeclaration") {
         auto function = std::static_pointer_cast<FunctionDeclaration>(callee);
         function->get_body()->associate_arguments(arguments);
+        function->get_body()->set_parent(function);
         return function->get_body()->execute(i);
     }
 

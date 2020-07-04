@@ -25,8 +25,10 @@ void IfStatement::dump(int indent)
     std::cout << "Then" << std::endl;
     then_block->dump(indent+2);
     print_indent(indent+1);
-    std::cout << "Else" << std::endl;
-    else_block->dump(indent+2);
+    if (else_block) {
+        std::cout << "Else" << std::endl;
+        else_block->dump(indent+2);
+    }
 };
 
 Value IfStatement::execute(Interpreter& i)

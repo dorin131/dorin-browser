@@ -17,7 +17,7 @@ Value Interpreter::run(std::shared_ptr<BlockStatement> block_statement)
         last_value = statement->execute(*this);
 
         if (is_return_statement(statement)) {
-            if (!is_in_a_function()) throw;
+            if (!in_function_count) throw SyntaxError("Illegal return statement");
             has_returned = true;
             break;
         }
@@ -40,10 +40,16 @@ Value Interpreter::run(std::shared_ptr<BlockStatement> block_statement)
 void Interpreter::enter_scope(std::shared_ptr<BlockStatement> block_statement)
 {
     scope_stack.push_front(block_statement);
+    auto parent = block_statement->get_parent();
+    if (parent && parent->get_type() == "FunctionDeclaration")
+        in_function_count++;
 }
 
 void Interpreter::exit_scope()
 {
+    auto parent = scope_stack.front()->get_parent();
+    if (parent && parent->get_type() == "FunctionDeclaration")
+        in_function_count--;
     scope_stack.pop_front();
 }
 
