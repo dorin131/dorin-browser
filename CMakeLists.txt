@@ -7,4 +7,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory (browser)
 add_subdirectory (JS)
+add_subdirectory (GUI)
 add_subdirectory (tests)
