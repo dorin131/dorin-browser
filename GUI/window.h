@@ -10,7 +10,7 @@ class DWindow
 public:
     DWindow();
 
-    void draw_window();
+    void draw_window(int w, int h);
 private:
     Display* display = XOpenDisplay(0);
 };
