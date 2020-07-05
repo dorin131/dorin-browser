@@ -84,6 +84,8 @@ std::vector<test> all_tests = {
     test("1 > 2", js::Value::BOOLEAN, "false"),
     test("1 <= 2", js::Value::BOOLEAN, "true"),
     test("1 >= 2", js::Value::BOOLEAN, "false"),
+    test("2 <= 2", js::Value::BOOLEAN, "true"),
+    test("2 >= 2", js::Value::BOOLEAN, "true"),
     test("if (true) { 1; } else { 2; };", js::Value::NUMBER, "1"),
     test("if (false) { 1; } else { 2; };", js::Value::NUMBER, "2"),
     test("if (5==5) { 1; } else { 2; };", js::Value::NUMBER, "1"),
@@ -101,7 +103,7 @@ std::vector<test> all_tests = {
     test("function rec(n) { if (n==10) { return 999;} else { return rec(10);};}; rec(2);", js::Value::NUMBER, "999"),
     test("function rec(n) { if (n==10) { return 999;} else { return rec(n-1);};}; rec(12);", js::Value::NUMBER, "999"),
     test("function pow(x, n) {if (n == 1) {return x;} else {return x * pow(x, n - 1);};}; pow(2,3);", js::Value::NUMBER, "8"),
-    // test("function fib(n){ if(n<=1){return 1;}; return fib(1) + fib(1); }; fib(4);", js::Value::NUMBER, "8"),
+    test("function fib(n){ if(n<=1){return 1;}; return fib(n-1) + fib(n-2); }; fib(15);", js::Value::NUMBER, "987"),
 };
 
 void interpreter_tests()
