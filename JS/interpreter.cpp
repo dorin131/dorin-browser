@@ -84,8 +84,8 @@ bool Interpreter::is_return_statement(std::shared_ptr<Statement> node)
 std::shared_ptr<Node> Interpreter::find_in_scope(Identifier ident)
 {
     for(std::shared_ptr<BlockStatement> block : scope_stack) {
-        if(block->get_local_scope()->has(ident)) {
-            return block->get_local_scope()->get(ident);
+        if(block->is_in_local_scope(ident)) {
+            return block->get_from_local_scope(ident);
         }
     }
     return get_global()->get(ident);

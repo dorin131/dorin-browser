@@ -19,7 +19,7 @@ void VariableStatement::dump(int indent)
 
 Value VariableStatement::execute(Interpreter& i)
 {
-    i.get_scope_stack().front()->get_local_scope()->set(identifier, expression);
+    i.get_scope_stack().front()->set_to_local_scope(identifier, expression);
     return Value(Value::UNDEFINED, "");
 };
 

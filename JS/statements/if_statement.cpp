@@ -31,7 +31,7 @@ void IfStatement::dump(int indent)
     }
 };
 
-Value IfStatement::execute(Interpreter& i)
+Value IfStatement::execute(Interpreter&)
 {
     /**
      * IfStatement should not be executed, rather you should get

@@ -19,9 +19,11 @@ Value CallExpression::execute(Interpreter& i)
 
     if (callee->get_type() == "FunctionDeclaration") {
         auto function = std::static_pointer_cast<FunctionDeclaration>(callee);
-        function->get_body()->associate_arguments(i, arguments);
-        function->get_body()->set_parent(function);
-        return function->get_body()->execute(i);
+        auto body = function->get_body();
+        auto body_copy = std::make_shared<BlockStatement>(*body);
+        body_copy->associate_arguments(i, arguments);
+        body_copy->set_parent(function);
+        return body_copy->execute(i);
     }
 
     return callee->execute(i);

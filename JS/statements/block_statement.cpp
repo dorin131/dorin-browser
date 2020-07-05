@@ -29,7 +29,7 @@ void BlockStatement::associate_arguments(Interpreter& in, std::vector<std::share
     for(Identifier id : parameters) {
         // We evaluate the value of the argument before storing it
         auto value = args[i]->execute(in);
-        get_local_scope()->set(id, std::make_shared<Literal>(Literal(value)));
+        set_to_local_scope(id, std::make_shared<Literal>(Literal(value)));
         i++;
     }
 }
