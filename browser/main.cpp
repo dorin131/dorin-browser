@@ -5,5 +5,5 @@
 
 int main(int, char**) {
     js::Eval().run("var x = 1+2; x;").get_value();
-    gui::DWindow().draw_window();
+    gui::DWindow().draw_window(500, 500);
 }
