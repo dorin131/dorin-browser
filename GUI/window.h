@@ -2,6 +2,8 @@
 #define WINDOW_H
 
 #include <X11/Xlib.h>
+#include <display.h>
+#include <unistd.h>
 
 namespace gui {
 
@@ -10,9 +12,7 @@ class DWindow
 public:
     DWindow();
 
-    void draw_window(int w, int h);
-private:
-    Display* display = XOpenDisplay(0);
+    void draw_window(int w, int h);  
 };
 
 }
