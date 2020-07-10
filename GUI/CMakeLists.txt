@@ -3,6 +3,8 @@ add_library (GUI
     window.cpp
     display.h
     display.cpp
+    painter.h
+    painter.cpp
 )
 
 target_include_directories (GUI PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

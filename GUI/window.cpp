@@ -2,27 +2,42 @@
 
 namespace gui {
 
-DWindow::DWindow()
+MainWindow::MainWindow(int w, int h)
+    : width(w), height(h)
 {
+    const int border_width = 1;
+    const int x = 0;
+    const int y = 0;
 
+    // Create window
+    this->window = XCreateSimpleWindow(this->display,
+                                       RootWindow(this->display, this->window_id),
+                                       x, y, this->width, this->height, border_width,
+                                       BlackPixel(this->display, this->window_id),
+                                       WhitePixel(this->display, this->window_id));
+    // Set window title
+    XStoreName(this->display, this->window, this->window_title);
 }
 
-void DWindow::draw_window(int width, int height)
+MainWindow::~MainWindow()
 {
-    DDisplay display = DDisplay();
-    // Attributes
-    XSetWindowAttributes attr;
-    attr.background_pixel = XWhitePixel(display.get(), 0);
+    hide();
+    if (this->window) {
+        XDestroyWindow(this->display, this->window);
+    }
+}
 
-    // Create the window
-    Window window = XCreateWindow(display.get(), DefaultRootWindow(display.get()), 0, 0, width,
-                height, 0, CopyFromParent, CopyFromParent, CopyFromParent, CWBackPixel, &attr);
+void MainWindow::show()
+{
+    XSelectInput(this->display, this->window, ButtonPressMask|ExposureMask);
+    XMapWindow(this->display, this->window);
+    XFlush(this->display);
+}
 
-    // Show the window
-    XMapWindow(display.get(), window);
-    XFlush(display.get());
-
-    sleep(2);
+void MainWindow::hide()
+{
+    XUnmapWindow(this->display, this->window);
+    XFlush(this->display);
 }
 
 }

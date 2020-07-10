@@ -6,15 +6,17 @@
 
 namespace gui {
 
-class DDisplay
+class DisplayWrap
 {
 public:
-    DDisplay();
-    ~DDisplay();
+    DisplayWrap(int id);
+    ~DisplayWrap();
 
-    inline Display* get() { return this->display; };
+    inline Display* get_display() { return this->display; };
+    inline int get_id() { return id; };
 private:
     Display* display;
+    int id;
 };
 
 }

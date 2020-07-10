@@ -2,9 +2,9 @@
 
 namespace gui {
 
-DDisplay::DDisplay()
+DisplayWrap::DisplayWrap(int id): id(id)
 {
-    this->display = XOpenDisplay(0);
+    this->display = XOpenDisplay(NULL);
 
     if (!this->display) {
         std::cerr << "Failed to open display\n";
@@ -13,7 +13,7 @@ DDisplay::DDisplay()
     }
 }
 
-DDisplay::~DDisplay()
+DisplayWrap::~DisplayWrap()
 {
     if (this->display) {
         XCloseDisplay(this->display);
